@@ -1,0 +1,9 @@
+A -> B -> C :- B -> A -> C
+A -> B -> C, A, B :- C (deduction theorem)
+
+(1) A
+(2) A -> B -> C
+(3) B -> C (MP 1, 2)
+(4) B
+(5) C (MP 3, 4)
+
