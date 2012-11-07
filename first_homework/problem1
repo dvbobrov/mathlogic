@@ -1,0 +1,12 @@
+A & B -> C :- A -> B -> C
+A & B -> C, A, B :- C (deduction theorem)
+
+
+(1) A -> B -> A & B (axiom 3)
+(2) A
+(3) B -> A & B (MP 1, 2)
+(4) B
+(5) A & B (MP 3, 4)
+(6) A & B -> C
+(7) C (MP 5, 6)
+
