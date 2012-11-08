@@ -55,7 +55,9 @@ let parse_expr input_string =
 		else
 			raise (Failure ("Syntax error in expression, position: " ^ string_of_int(pos)))
 	in
-	let parse_result = parse_impl 0 in
+	let parse_result = 
+		try parse_impl 0 with Invalid_argument e -> raise (Failure "Syntax error in expression, reached end of string before end of expression") 
+		in
 	if parse_result.end_pos = (String.length input_string - 1) then
 		parse_result.result
 	else raise (Failure ("Syntax error in expression, position: " ^ string_of_int(parse_result.end_pos)))
