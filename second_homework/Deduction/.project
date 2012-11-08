@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Deduction</name>
+	<name>DeductionTheorem</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>Ocaml.ocamlbuilder</name>
+			<name>Ocaml.ocamlbuildBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>ocaml.ocamlnature</nature>
+		<nature>ocaml.ocamlbuildnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>External files/string.mli</name>
-			<type>1</type>
-			<location>/usr/lib64/ocaml/string.mli</location>
-		</link>
-	</linkedResources>
 </projectDescription>
