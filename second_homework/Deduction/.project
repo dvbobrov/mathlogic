@@ -14,4 +14,11 @@
 	<natures>
 		<nature>ocaml.ocamlnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>External files/string.mli</name>
+			<type>1</type>
+			<location>/usr/lib64/ocaml/string.mli</location>
+		</link>
+	</linkedResources>
 </projectDescription>
