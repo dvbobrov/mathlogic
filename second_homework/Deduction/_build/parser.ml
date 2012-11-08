@@ -71,4 +71,10 @@ let rec string_of_expression expr =
 		| Implication (e1, e2) -> "(" ^ (string_of_expression e1) ^ "->" ^ (string_of_expression e2) ^ ")"
 		| Disjunction (e1, e2) -> "(" ^ (string_of_expression e1) ^ "|" ^ (string_of_expression e2) ^ ")"
 		| Conjunction (e1, e2) -> "(" ^ (string_of_expression e1) ^ "&" ^ (string_of_expression e2) ^ ")"
-		| Negation e1 -> "!" ^ (string_of_expression e1)
+		| Negation e1 -> "!" ^ (string_of_expression e1);;
+
+let rec list_to_expr_list list = 
+	match list with
+		| x :: xs -> (parse_expr x) :: (list_to_expr_list xs)
+		| [] -> [];;
+

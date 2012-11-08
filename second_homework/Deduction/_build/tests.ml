@@ -89,4 +89,6 @@ test 8 (fun () ->
 				assert (parse_problem "A -> B, B -> C :- A -> C" = ("A->C", ["B->C"; "A->B"]));
 	);;
 
+
+
 print_string ("Testing finished. Failed: " ^ (string_of_int !failed_count));;

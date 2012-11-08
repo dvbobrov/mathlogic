@@ -1,3 +1,5 @@
+open Parser;;
+
 let read_lines filename =
 	let lines = ref [] in
 	let fi = open_in filename in
@@ -24,3 +26,8 @@ let parse_problem str =
 			| x::xs -> (x, xs)
 			| [] -> failwith "O_o"
 ;;
+
+let get_problem filename = 
+	let (problem, proof) = read_lines filename in
+	let (what_to_prove, additional_axioms) = parse_problem problem in
+	((parse_expr what_to_prove), (list_to_expr_list proof), (list_to_expr_list additional_axioms));;
