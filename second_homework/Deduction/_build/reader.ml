@@ -18,7 +18,7 @@ let read_lines filename =
 
 let parse_problem str =
 	let replaced = Str.global_replace (Str.regexp " ") "" str in
-	if not(Str.string_match (Str.regexp "^\\([A-Z|&>-]+\\(,[A-Z|&>-]+\\)*\\)?:-[A-Z|&>-]+$") replaced 0) then
+	if not(Str.string_match (Str.regexp "^\\([A-Z|&>()-]+\\(,[A-Z|&>()-]+\\)*\\)?:-[A-Z|&>()-]+$") replaced 0) then
 		raise (Failure "String does not match the rule")
 	else
 		let splitted = List.rev (Str.split (Str.regexp "\\(,\\|:-\\)") replaced) in

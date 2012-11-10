@@ -1,1 +1,1 @@
-main.ml: Reader
+main.ml: Output Prover Reader

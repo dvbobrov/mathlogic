@@ -1,5 +1,6 @@
 open Parser ;;
 open Reader ;;
+open Prover ;;
 
 let failed_count = ref 0;;
 
@@ -86,9 +87,17 @@ test 7 (fun () ->
 
 (* Problem parser *)
 test 8 (fun () ->
-				assert (parse_problem "A -> B, B -> C :- A -> C" = ("A->C", ["B->C"; "A->B"]));
+				assert (parse_problem "(A->B) & (C->D), B -> C :- A -> C" = ("A->C", ["B->C"; "(A->B)&(C->D)"]));
 	);;
 
+(* Modus Ponens *)
+test 9 (fun () ->
+	assert (modus_ponens (parse_expr "(A->B)->(B->C)") (parse_expr "A->B") = parse_expr "B->C")
+	);;
+
+test 10 (fun () ->
+	assert (modus_ponens (parse_expr "A->B") (parse_expr "(A->B)->(B->C)") = parse_expr "B->C")
+	);;
 
 
 print_string ("Testing finished. Failed: " ^ (string_of_int !failed_count));;
