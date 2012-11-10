@@ -1,1 +1,1 @@
-tests.ml: Parser Prover Reader
+tests.ml: Output Parser Prover Reader

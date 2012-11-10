@@ -1,6 +1,7 @@
 open Parser ;;
 open Reader ;;
 open Prover ;;
+open Output ;;
 
 let failed_count = ref 0;;
 
@@ -99,5 +100,25 @@ test 10 (fun () ->
 	assert (modus_ponens (parse_expr "A->B") (parse_expr "(A->B)->(B->C)") = parse_expr "B->C")
 	);;
 
+(* Axiom cases *)
+test 11 (fun () ->
+	assert(prove_axiom_case (parse_expr "A->B") (parse_expr "A->C") = [parse_expr "(A->B)->(A->C)->(A->B)"; parse_expr "(A->C)->(A->B)"])
+	);;
+
+(* MP cases *)
+test 12 (fun () -> 
+	let prev = list_to_expr_list ["A->B->A"; "A"; "B->A"; "A->B->C"; "(A->B->C)->B->(A->B->C)"; "B->(A->B->C)"] in
+	let proof = try_modus_ponens (parse_expr "B->C") (parse_expr "B") prev [] in
+	assert(proof = list_to_expr_list ["(B->A)->(B->A->(B->C))->(B->(B->C))"; 
+		"(B->A->(B->C))->(B->(B->C))";
+		"B->(B->C)"])
+	);;
+
+(* Implication to self *)
+test 13 (fun () ->
+	let expr = parse_expr "B" in
+	let proof = make_proof_from_deduction expr expr [] [] in
+	assert (proof = list_to_expr_list ["B->B->B"; "(B->(B->B))->(B->((B->B)->B))->(B->B)"; "(B->((B->B)->B))->(B->B)"; "(B->((B->B)->B))"; "B->B"])
+	);;
 
 print_string ("Testing finished. Failed: " ^ (string_of_int !failed_count));;

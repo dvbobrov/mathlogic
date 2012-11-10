@@ -4,6 +4,7 @@ type expression =
 	| Conjunction of expression * expression
 	| Disjunction of expression * expression
 	| Negation of expression
+	| Nil
 ;;
 
 let parse_expr input_string =

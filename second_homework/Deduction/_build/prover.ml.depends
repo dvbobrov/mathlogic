@@ -1,1 +1,1 @@
-prover.ml: Parser
+prover.ml: Output Parser
