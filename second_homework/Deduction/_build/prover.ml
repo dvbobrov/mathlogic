@@ -109,19 +109,19 @@ let rec prove what deduction_proof additional_axioms =
 	match additional_axioms with
 	| [] -> deduction_proof
 	| x:: xs ->
-			print_string ("Adding axiom "^(string_of_expression x)^"\n");
+			(* print_string ("Adding axiom "^(string_of_expression x)^"\n"); *)
 			let proof_without_x =
 				let rec remove_axiom proof passed =
 					match proof with
 					| [] -> passed
 					| y:: ys ->
-							print_string ("Proving "^(string_of_expression y)^"\n");
+							(* print_string ("Proving "^(string_of_expression y)^"\n"); *)
 							let res = make_proof_from_deduction y x xs passed in
-							remove_axiom ys (res)
+							remove_axiom ys res
 				in
 				remove_axiom deduction_proof []
 			in 
-			write_expr_list proof_without_x;
+			(* write_expr_list proof_without_x; *)
 			prove (Implication (x, what)) proof_without_x xs
 ;;
 

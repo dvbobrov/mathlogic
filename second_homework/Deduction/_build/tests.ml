@@ -102,7 +102,7 @@ test 10 (fun () ->
 
 (* Axiom cases *)
 test 11 (fun () ->
-	assert(prove_axiom_case (parse_expr "A->B") (parse_expr "A->C") = [parse_expr "(A->B)->(A->C)->(A->B)"; parse_expr "(A->C)->(A->B)"])
+	assert(prove_axiom_case (parse_expr "A->B") (parse_expr "A->C") = list_to_expr_list["A->B"; "(A->B)->(A->C)->(A->B)"; "(A->C)->(A->B)"])
 	);;
 
 (* MP cases *)
