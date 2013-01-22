@@ -1,0 +1,11 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+N	main.cpp	/^int N(int x) {$/;"	f	signature:(int x)
+U	main.cpp	/^int U(int t, Args... args) {$/;"	f	signature:(int t, Args... args)
+U	main.cpp	/^int U<1, Args...>(int t, Args... args) {$/;"	f	signature:(int t, Args... args)
+Z	main.cpp	/^int Z(Args... args) {$/;"	f	signature:(Args.... args)
+main	main.cpp	/^int main() {$/;"	f	signature:()
