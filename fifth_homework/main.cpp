@@ -90,9 +90,34 @@ typedef S<Sum, U<3>, X_GE_YZ> DivRec;
 typedef R<S<Z, U<0>>, DivRec> DivImpl;
 typedef S<DivImpl, U<0>, U<1>, U<0>> Div;
 
-
+// Remainder
 typedef S<Sub, U<0>, S<Mul, S<Div, U<0>, U<1>>, U<1>>> Rem;
 
+// Power
+typedef R<S<N, Z>, S<Mul, U<2>, U<0>>> Pow;
+
+// Prime
+typedef R<Z, S<Sum, U<2>, S<Not, S<Rem, U<0>, U<1>>>>> PrimeImpl;
+typedef S<GE, S<N, Z>, S<PrimeImpl, U<0>, U<0>>> Prime;
+
+// Limex
+typedef S<Not, S<Sum, S<GT, U<0>, S<N, Z>>, S<GT, S<N, Z>, U<0>>>> EQ_1;
+
+/*template<typename T>
+struct Limex {
+  typedef typename R<S<T, Z>, S<Sum, U<2>, S<EQ_1, S<T, U<1>>>>> Impl;
+  typedef typename S<GZ, S<Impl, Z, U<0>>> Exec;
+};*/
+
+template<typename T>
+using LimexImpl = R<S<T, Z>, S<Sum, U<2>, S<EQ_1, S<T, U<1>>>>>;
+
+template<typename T>
+using Limex = S<GZ, S<LimexImpl<T>, Z, U<0>>>;
+
+
+
+// Start functions
 int sum(int x, int y) {
   return Sum::res(x, y);
 }
@@ -113,17 +138,37 @@ int rem(int x, int y) {
   return Rem::res(x, y);
 }
 
+int pow(int x, int y) {
+  return Pow::res(x, y);
+}
+
+int gt(int x, int y) {
+  return GT::res(x, y);
+}
+
+int prime(int x) {
+  return Prime::res(x);
+}
+
+template<typename T>
+int limex(int y) {
+  return Limex<T>::res(y);
+}
+// End functions
+
 int main() {
   
   using std::cout;
   using std::endl;
 
-  //cout << IncZ::res(1, 2, 3) << endl;;
-  //cout << MulYZ::res(1, 2, 3) << endl;
-  //cout << X_GE_YZ::res(1, 2, 3) << " " << X_GE_YZ::res(10, 2, 3) << endl;
-  //cout << DivRec::res(10, 2, 3, 2) << endl;
-  
-  cout << idiv(6, 3) << " " << idiv(4, 3) << endl;
-  cout << rem(6, 3) << " " << rem(4, 3) << endl;
+  cout << sum(2, 3) << "\n"; // 5
+  cout << mul(2, 3) << "\n"; // 6
+  cout << sub(10, 4) << "\n"; // 6
+  cout << idiv(10, 2) << " " << rem(9, 5) << "\n"; // 5 4
+  cout << pow(2, 3) << "\n"; //8
+  cout << gt(1, 1) << " " << gt(0, 1) << " " << gt(5, 2) << "\n"; // 0 0 1
+  cout << prime(6) << " " << prime(7) << "\n"; // 0 1
+  cout << limex<GZ>(1) << " " << limex<GZ>(4) << "\n"; // 0 1
+
   return 0;
 }
