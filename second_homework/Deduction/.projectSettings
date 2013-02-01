@@ -6,6 +6,6 @@
 		<item value="" key="ocamlbuildProjectCompilerFlags"/>
 		<item value="" key="ocamlbuildProjectOtherFlags"/>
 		<item value="true" key="ocamlbuildGenerateTypeInfo"/>
-		<item value="main.byte,tests.byte" key="ocamlbuildProjectTargets"/>
+		<item value="main.byte,tests.byte,deduction.byte" key="ocamlbuildProjectTargets"/>
 	</section>
 </section>
