@@ -1,5 +1,9 @@
 open Parser ;;
 
+let write_string_to_file str filename = 
+	let fo = open_out filename in
+	output_string fo str;;
+	
 let write_proof_to_file proof filename = 
 	let fo = open_out filename in
 	let rec write_to_file list = 

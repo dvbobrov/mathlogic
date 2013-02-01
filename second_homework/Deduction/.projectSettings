@@ -3,9 +3,9 @@
 	<section name="OcamlbuildSettings">
 		<item value="" key="ocamlbuildProjectLinkerFlags"/>
 		<item value="str" key="ocamlbuildProjectLibs"/>
-		<item value="" key="ocamlbuildProjectCompilerFlags"/>
 		<item value="" key="ocamlbuildProjectOtherFlags"/>
+		<item value="" key="ocamlbuildProjectCompilerFlags"/>
 		<item value="true" key="ocamlbuildGenerateTypeInfo"/>
-		<item value="main.byte,tests.byte,deduction.byte" key="ocamlbuildProjectTargets"/>
+		<item value="main.byte,tests.byte,deduction.byte,main.d.byte" key="ocamlbuildProjectTargets"/>
 	</section>
 </section>

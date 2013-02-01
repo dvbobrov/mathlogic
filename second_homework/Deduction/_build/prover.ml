@@ -105,21 +105,24 @@ let make_proof_from_deduction expr cur_axiom additional_axioms previous_statemen
 				if l1 = [] then failwith "Incorrect proof" else previous_statements @ l1
 ;;
 
+let rec remove_axiom proof cur_ax additional_ax passed = 
+	print_string ("Removing axiom: " ^ (string_of_expression cur_ax) ^ "\nAdditional:\n");
+	write_expr_list additional_ax;
+	print_string "Proof:\n";
+	write_expr_list proof;
+	match proof with
+					| [] -> passed
+					| y:: ys ->
+						let res = make_proof_from_deduction y cur_ax additional_ax passed in
+						remove_axiom ys cur_ax additional_ax res;;
+
 let rec prove what deduction_proof additional_axioms =
 	match additional_axioms with
 	| [] -> deduction_proof
 	| x:: xs ->
 			(* print_string ("Adding axiom "^(string_of_expression x)^"\n"); *)
 			let proof_without_x =
-				let rec remove_axiom proof passed =
-					match proof with
-					| [] -> passed
-					| y:: ys ->
-							(* print_string ("Proving "^(string_of_expression y)^"\n"); *)
-							let res = make_proof_from_deduction y x xs passed in
-							remove_axiom ys res
-				in
-				remove_axiom deduction_proof []
+				remove_axiom deduction_proof x xs [];
 			in 
 			(* write_expr_list proof_without_x; *)
 			prove (Implication (x, what)) proof_without_x xs

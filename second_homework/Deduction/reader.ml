@@ -12,10 +12,17 @@ let read_lines filename =
 		done; ("", [])
 	with End_of_file ->
 			close_in fi;
-			match !lines with
-			| x:: xs -> (x, List.rev xs)
-			| [] -> failwith "File is empty"
+	match !lines with
+	| x:: xs -> (x, List.rev xs)
+	| [] -> failwith "File is empty"
 ;;
+
+let read_first_line filename = 
+	let fi = open_in filename in
+	try
+		input_line fi
+	with End_of_file ->
+		failwith "File is empty";;
 
 let parse_problem str =
 	let replaced = Str.global_replace (Str.regexp " ") "" str in
