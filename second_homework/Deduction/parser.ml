@@ -9,7 +9,7 @@ type expression =
 
 let parse_expr input_string =
 	let rec parse_impl pos =
-		(* print_string ("parse_impl " ^ string_of_int(pos) ^ "\n"); *)
+		(* debug_output ("parse_impl " ^ string_of_int(pos) ^ "\n"); *)
 		let (p1, r1) = parse_disjunction pos in
 		if (String.length input_string > p1 + 2) && (input_string.[p1 + 1] = '-') && (input_string.[p1 + 2] = '>') then
 			let (p2, r2) = parse_impl (p1 + 3) in
@@ -18,7 +18,7 @@ let parse_expr input_string =
 			(p1, r1)
 	and
 	parse_disjunction pos =
-		(* print_string ("parse_disj " ^ string_of_int(pos) ^ "\n"); *)
+		(* debug_output ("parse_disj " ^ string_of_int(pos) ^ "\n"); *)
 		let (p1, r1) = parse_conjunction pos in
 		if (String.length input_string > p1 + 1) && (input_string.[p1 + 1] = '|') then
 			let (p2, r2) = parse_disjunction (p1 + 2) in
@@ -27,7 +27,7 @@ let parse_expr input_string =
 			(p1, r1)
 	and
 	parse_conjunction pos =
-		(* print_string ("parse_conj " ^ string_of_int(pos) ^ "\n"); *)
+		(* debug_output ("parse_conj " ^ string_of_int(pos) ^ "\n"); *)
 		let (p1, r1) = parse_term pos in
 		if (String.length input_string > p1 + 1) && (input_string.[p1 + 1] = '&') then
 			let (p2, r2) = parse_conjunction (p1 + 2) in
@@ -36,9 +36,9 @@ let parse_expr input_string =
 			(p1, r1)
 	and
 	parse_term pos =
-		(* print_string ("parse_term " ^ string_of_int(pos) ^ "\n"); *)
+		(* debug_output ("parse_term " ^ string_of_int(pos) ^ "\n"); *)
 		if (input_string.[pos] >= 'A') && (input_string.[pos] <= 'Z') then begin
-			(* print_string "PropVar\n"; *)
+			(* debug_output "PropVar\n"; *)
 			(pos, PropositionalVariable(input_string.[pos])) end
 		else if input_string.[pos] = '!' then
 			let (p1, r1) = parse_term (pos + 1) in

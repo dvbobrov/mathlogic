@@ -1,0 +1,38 @@
+\documentclass[12pt,a4paper,oneside]{article}
+\usepackage{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage [T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\input glyphtounicode
+\pdfgentounicode=1
+
+\begin{document}
+
+\section{Syntax}
+A-Z: variables;\\
+$!\varphi$: negation;\\
+$\varphi \& \psi$: conjunction;\\
+$\varphi | \psi$: disjunction;\\
+$\varphi -> \psi$: implication;\\
+
+All binary operators are right-associative, order can be changed using parentheses.
+
+\section{Usage}
+\subsection{deduction.ml}
+Input file: deduction\_input.txt\\
+Input file should contain proof that uses assumptions, each expression on a single line, the last line should contain a list of assumptions separated by ',' and the last part of expression after ':-'\\
+
+Output file: deduction\_output.txt\\
+Contains a full proof of given expression without assumptions.
+
+\subsection{main.ml}
+Input file: completeness\_input.txt\\
+Should contain a single line with a true expression.\\
+
+Output file: completeness\_output.txt\\
+Contains a full proof of given expression.
+\end{document}

@@ -6,7 +6,7 @@ let read_lines filename =
 	try
 		while true do
 			let line = input_line fi in
-			(* print_string ("Line: "^line^"\n"); *)
+			(* debug_output ("Line: "^line^"\n"); *)
 			if not(line = "") then
 				lines := line :: !lines
 		done; ("", [])

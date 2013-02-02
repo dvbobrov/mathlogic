@@ -106,9 +106,9 @@ let make_proof_from_deduction expr cur_axiom additional_axioms previous_statemen
 ;;
 
 let rec remove_axiom proof cur_ax additional_ax passed = 
-	print_string ("Removing axiom: " ^ (string_of_expression cur_ax) ^ "\nAdditional:\n");
+	debug_output ("Removing axiom: " ^ (string_of_expression cur_ax) ^ "\nAdditional:\n");
 	write_expr_list additional_ax;
-	print_string "Proof:\n";
+	debug_output "Proof:\n";
 	write_expr_list proof;
 	match proof with
 					| [] -> passed
@@ -120,7 +120,7 @@ let rec prove what deduction_proof additional_axioms =
 	match additional_axioms with
 	| [] -> deduction_proof
 	| x:: xs ->
-			(* print_string ("Adding axiom "^(string_of_expression x)^"\n"); *)
+			(* debug_output ("Adding axiom "^(string_of_expression x)^"\n"); *)
 			let proof_without_x =
 				remove_axiom deduction_proof x xs [];
 			in 

@@ -30,22 +30,22 @@ let excluded_middle a =
 	];;
 
 let rec prove1 what additional_axioms proof =
-	print_string ("prove1 for " ^ (string_of_expression what) ^ "\n"); 
-	print_string "with proof:\n";
+	debug_output ("prove1 for " ^ (string_of_expression what) ^ "\n"); 
+	debug_output "with proof:\n";
 	write_expr_list !proof;
-	print_string "and additional axioms:\n";
+	debug_output "and additional axioms:\n";
 	write_expr_list additional_axioms;
 	match what with
 	| Implication (left, right) ->
 			let result1 = prove1 left additional_axioms proof in
 			let result2 = prove1 right additional_axioms proof in
 			if (result2) then (
-				print_string "prove1 impl res2\n";
+				debug_output "prove1 impl res2\n";
 				proof := !proof @ [(ax1 right left); Implication(left, right)]; 
 				true
 			)
 			else if (result1 && not(result2)) then (
-				print_string "prove1 impl res1\n";
+				debug_output "prove1 impl res1\n";
 				let pr1 = (ax9 what right) :: (remove_axiom [what; left; right] what [left] []) in
 				let n = Negation right in
 				let pr2 = (Implication(Implication(Implication(left, right), Negation(right)),
@@ -53,7 +53,7 @@ let rec prove1 what additional_axioms proof =
 				proof := ((!proof @ pr1) @ pr2) @ [Negation (Implication(left, right))];
 				false
 			) else (
-				print_string "prove1 impl !res2\n";
+				debug_output "prove1 impl !res2\n";
 				let negLeft = Negation left in
 				let negRight = Negation right in
 				let deductionProof = [
@@ -76,7 +76,7 @@ let rec prove1 what additional_axioms proof =
 	| Negation ex ->
 			let result = prove1 ex additional_axioms proof in
 			if (not(result)) then true else (
-				print_string ("prove1 negation true");
+				debug_output ("prove1 negation true");
 				let implToSelf = remove_axiom [what] what [] []	in
 				proof := (!proof @ ((ax9 what ex) :: (ax1 ex what) :: Implication(Negation ex, ex) ::
 					Implication(Implication(Negation ex, Negation ex), Negation(Negation ex)) :: implToSelf)) @ [Negation what];
@@ -85,16 +85,16 @@ let rec prove1 what additional_axioms proof =
 	| PropositionalVariable _ ->
 			let rec iterAxioms ax =
 				match ax with
-				| [] -> (print_string "prove1 -> PropositionalVariable -> iterAxioms : nothing"); false
+				| [] -> (debug_output "prove1 -> PropositionalVariable -> iterAxioms : nothing"); false
 				| x:: ax' ->
-						if (x = what) then (print_string ("Added1 " ^ (string_of_expression what)^"\n"); 
+						if (x = what) then (debug_output ("Added1 " ^ (string_of_expression what)^"\n"); 
 						proof := !proof @ [x]; 
 						true) else if (x = (Negation what)) then
-							(print_string ("Added2 " ^ (string_of_expression what)^"\n");
+							(debug_output ("Added2 " ^ (string_of_expression what)^"\n");
 							proof := !proof @ [x];
 							false) else iterAxioms ax' in
 			iterAxioms additional_axioms
-	| _ -> print_string "prove1 -> smth else"; false;;
+	| _ -> debug_output "prove1 -> smth else"; false;;
 
 module OrderedChar = struct
 	type t = char
@@ -117,13 +117,13 @@ let prove2 what =
 	let rec prove2Impl vars additional_axioms = 
 		match vars with
 		| [] -> 
-			print_string ("prove2Impl for []\n");
+			debug_output ("prove2Impl for []\n");
 			write_expr_list additional_axioms;
 			let proof = ref [] in
 			let res = prove1 what additional_axioms proof in
 			if res then !proof else []
 		| cur ::vars' ->
-			print_string ("prove2Impl for vars\n");
+			debug_output ("prove2Impl for vars\n");
 			write_expr_list additional_axioms;
 			let var = PropositionalVariable cur in
 			let pr1 = prove2Impl vars' (var :: additional_axioms) in
