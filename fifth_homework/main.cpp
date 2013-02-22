@@ -9,7 +9,7 @@ struct Z {
 
 
 struct N {
-  static int res(int i) {
+  static int res(int i, ...) {
     return i + 1;
   }
 };
@@ -46,15 +46,37 @@ struct S {
 
 };
 
+int& last(int& k) {
+	return k;
+}
+
+template<typename... Args>
+int& last(int& k,  Args&... args) {
+	return last(args...);
+}
+
 template<typename F, typename G>
 struct R {
-
+/*
   static int res(int x, int y) {
     return y == 0 ? F::res(x) : G::res(x, y - 1, res(x, y - 1));
   }
 
   static int res(int x, int x1, int y) {
     return y == 0 ? F::res(x, x1) : G::res(x, x1, y - 1, res(x, x1, y - 1));
+  }*/
+  template<typename... Args>
+  static int res(Args... args) {
+	//std::cout << "R::res\n";
+	int& l = last(args...);
+	//std::cout << l << "\n";
+	if (l == 0) {
+		//std::cout << "F\n";
+		return F::res(args...);
+	}
+	//std::cout << "G\n";
+	--l;
+	return G::res(args...,  res(args...));
   }
 };
 
